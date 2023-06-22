@@ -1,29 +1,26 @@
 #include "factor.h"
 
 /**
- * factorize - The function factorize a number
- * @buffer: pointer to the address of the number
+ * factorisze - The fun factorisze a numbers
+ * @buffer: pointer is the addres of numbers
  *
- * Author: Thaoban Abdrasheed
+ * Author: ibrahim said
  * Return: int
  */
-int factorize(char *buffer)
+int factorisze(char *buffer)
 {
+u_int32_t nums;
+u_int32_t k;
 
-	u_int32_t num;
-	u_int32_t i;
+nums = atoi(buffer);
 
-	num = atoi(buffer);
-
-
-	for (i = 2; i < num; i++)
-	{
-		if (num % i == 0)
-		{
-			printf("%d=%d*%d\n",num,num/i,i);
-			break;
-		}
-	}
-
+for (k = 2; k < nums; k++)
+{
+if (nums % k == 0)
+{
+printf("%d=%d*%d\n",nums,nums/k,k);
+break;
+}
+}
 return (0);
 }
