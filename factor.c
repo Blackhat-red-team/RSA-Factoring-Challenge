@@ -10,7 +10,7 @@
 int main(int argc, char *argv[])
 {
 FILE *fptr;
-size_t couunt;
+size_t count;
 ssize_t line;
 char *buffer = NULL;
 
@@ -26,7 +26,7 @@ if (fptr == NULL)
 fprintf(stderr, "Error: can't open file %s\n", argv[1]);
 exit(EXIT_FAILURE);
 }
-while((line = getline(&buffer, &couunt, fptr)) != -1)
+while((line = getline(&buffer, &count, fptr)) != -1)
 {
 factorisze(buffer);
 }
