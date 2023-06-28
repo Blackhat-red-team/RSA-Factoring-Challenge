@@ -1,33 +1,50 @@
-#!/usr/bin/python3
-"""Module that factorize as many numbers as possible
- into a product of two smaller numbers."""
-from sys import argv
+#!/usr/bin/env bash
+# is a factors challenge
 
+check_factor()
+{
+	if [ $# -ne 3 ];
+        then
+                args=("$@")
+                count=0
+                num4=1
+                for a in ${args[*]};
+                do
+                        if [ $count -gt 1 ];
+                        then
+                                num4=$(echo $a*$num4 | bc)
+                        fi
+                        count=$((count + 1))
+                done
+        else
+                num4=$3
+        fi
 
-def factorize(value):
-    """"print a simple descomposition of an integer > 1"""
-    i = 2
+        num3=$2
+        num0=$(echo "$1" | tr ':' '=')
 
-    if value < 2:
-        return
-    print()
-    print(value, "<- value-bef")
-    while value % i:
-        i += 1
-    print("{:.0f}={:.0f}*{:.0f}".format(value, value / i, i))
-    print(value, "<- value-aft")
-    print()
+        result=$(echo "if($num4 > $num3) 1 else 0" | bc)
+	        if ((result == 1)); then
+		        numcp=$num3
+		        num3=$num4
+		        num4=$numcp
+                fi
 
-if len(argv) != 2:
-    exit()
+        echo "$num0$num3*$num4"
+}
 
-try:
-    with open(argv[1]) as file:
-        line = file.readline()
+if [ $# -ne 1 ]
+then
+        echo 'Usage: factors <file>'
+        exit 1
+else
 
-        while line != "":
-            value = int(line.split('\n')[0])
-            factorize(value)
-            line = file.readline()
-except:
-    pass
+        while read l
+        do
+
+                result=$(factor "$l")
+                check_factor $result
+
+        done < "$1"
+fi
+
