@@ -7,30 +7,30 @@ check_factor()
         then
                 args=("$@")
                 count=0
-                num4=1
+                num2=1
                 for a in ${args[*]};
                 do
                         if [ $count -gt 1 ];
                         then
-                                num4=$(echo $a*$num4 | bc)
+                                num2=$(echo $a*$num2 | bc)
                         fi
                         count=$((count + 1))
                 done
         else
-                num4=$3
+                num2=$3
         fi
 
-        num3=$2
-        num0=$(echo "$1" | tr ':' '=')
+        num1=$2
+        num=$(echo "$1" | tr ':' '=')
 
-        result=$(echo "if($num4 > $num3) 1 else 0" | bc)
+        result=$(echo "if($num2 > $num1) 1 else 0" | bc)
 	        if ((result == 1)); then
-		        numcp=$num3
-		        num3=$num4
-		        num4=$numcp
+		        numcp=$num1
+		        num1=$num2
+		        num2=$numcp
                 fi
 
-        echo "$num0$num3*$num4"
+        echo "$num$num1*$num2"
 }
 
 if [ $# -ne 1 ]
@@ -39,12 +39,11 @@ then
         exit 1
 else
 
-        while read l
+        while read i
         do
 
-                result=$(factor "$l")
+                result=$(factor "$i")
                 check_factor $result
 
         done < "$1"
 fi
-
