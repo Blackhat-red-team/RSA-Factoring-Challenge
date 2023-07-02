@@ -1,0 +1,30 @@
+#!/usr/bin/python3
+import sys
+
+def prime_Factor(n):
+    while n % 2 == 0:
+        return 2
+
+    i = 3
+    while i * i <= n:
+        while n % i == 0:
+            return i
+        i += 2
+
+    if n > 2:
+        return n
+    return 1
+
+def main():
+    sys.stdin = open(sys.argv[1], 'r')
+
+    while True:
+        try:
+            n = int(input())
+            x = prime_Factor(n)
+            print('{}={}*{}'.format(n, n // x, x))
+        except EOFError:
+            break
+
+if __name__ == "__main__":
+    main()
